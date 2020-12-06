@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>unnamed.group/merch</title>
+    <script src="https://js.stripe.com/v3"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap");
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      body {
+        font-family: "Fira Sans", sans-serif;
+        height: 100vh;
+        text-align: center;
+        margin: 0;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="error-message"></div>
+
+    <h2>What you want?</h2>
+
+    <div id="links"></div>
+
+  </body>
+  <script>
+    (function () {
+      let stripe = Stripe(
+        "pk_live_51Hbn1vIAzB2rf3elFKs7FKfx1yDMOERnVs2nUGGiapAmgkS124DgJWPJtpIqEuOA8khVf5Pf82ATCoZw83wWqEkm00u4F3kNM5"
+      );
+
+      let products = {
+        "Face Mask (Integrated Filter)" : "price_1Hbo6rIAzB2rf3elJhoKQwNg",
+      }
+
+      for (let name in products) {
+        let linkArea = document.getElementById("links");
+        let newLink = document.createElement('a');
+        newLink.id = products[name];
+        newLink.href = "javascript:null"
+        newLink.innerText = name;
+
+        newLink.addEventListener("click", function () {
+          stripe
+            .redirectToCheckout({
+              lineItems: [
+                { price: products[name], quantity: 1 },
+              ],
+              mode: "payment",
+              successUrl: "https://unnamed.group/merch",
+              cancelUrl: "https://unnamed.group/merch",
+            })
+            .then(function (result) {
+              if (result.error) {
+                let displayError = document.getElementById("error-message");
+                displayError.textContent = result.error.message;
+              }
+            });
+        });
+          
+        linkArea.appendChild(newLink);
+        linkArea.appendChild(document.createElement('br'));
+      }
+
+    })();
+  </script>
+</html>
