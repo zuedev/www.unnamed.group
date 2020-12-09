@@ -14,25 +14,6 @@ body {
   margin: 0;
 }
 
-/* nav a {
-  color: red;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-nav ul {
-  padding: 0;
-}
-
-nav li {
-  display: inline;
-}
-
-nav li + li:not(:first-child):before {
-  content: " | ";
-  color: white;
-} */
-
 main {
   background: white;
   padding: 1rem;
