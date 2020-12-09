@@ -14,7 +14,7 @@ body {
   margin: 0;
 }
 
-nav a {
+/* nav a {
   color: red;
   text-decoration: none;
   text-transform: uppercase;
@@ -31,7 +31,7 @@ nav li {
 nav li + li:not(:first-child):before {
   content: " | ";
   color: white;
-}
+} */
 
 main {
   background: white;
